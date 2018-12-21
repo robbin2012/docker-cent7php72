@@ -43,8 +43,10 @@ COPY config/speex_decode /usr/local/bin/speex2wav
 
 #Convert word/ppt files to pdf
 RUN yum -y install unoconv
-ADD config/Fonts.tar.gz /usr/share/fonts/
-WORKDIR /usr/share/fonts/Fonts
+RUN mkdir /usr/share/fonts/winfonts/
+COPY config/fonts/* /usr/share/fonts/winfonts/
+WORKDIR /usr/share/fonts/winfonts
+RUN rm .git -rf #remove git file and dir
 RUN mkfontscale && mkfontdir && fc-cache -fv
 
 
